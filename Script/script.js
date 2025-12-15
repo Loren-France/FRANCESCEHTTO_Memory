@@ -22,8 +22,10 @@ let immaginiDisponibili = [
 
 // matrice di gioco
 let griglia = [];
+let scelte = [];
 let cont=0;
 let coppia;
+let output="";
 function memory() {
     let diff = document.getElementById("difficoltà").value;
     let tabella = crea(diff);
@@ -31,6 +33,7 @@ function memory() {
 }
 
 function crea(diff) {
+    output="";
     let tabella = "";
     let indic = diff=="easy" ? 2
         : diff=="medium" ? 4
@@ -60,30 +63,42 @@ function crea(diff) {
     }
 }
 
-function cliccato(i,j) {
-    cont++;
+function cliccato(i, j) {
     let button = `<img src="${griglia[i][j]}" alt="front">`;
     document.getElementById(`btn-${i}-${j}`).innerHTML = button;
-    if (cont%2==0) {
-        if(){
-            coppia=true;
+
+    scelte.push({i, j});
+
+    if (scelte.length === 2) {
+        let [prima, seconda] = scelte;
+        if (griglia[prima.i][prima.j] === griglia[seconda.i][seconda.j]) {
+            cont++;
+            coppia = true;
+            // blocco i bottoni per non poterli più cliccare
+            document.getElementById(`btn-${prima.i}-${prima.j}`).disabled = true;
+            document.getElementById(`btn-${seconda.i}-${seconda.j}`).disabled = true;
+            output="Complimenti hai trovato: "+cont+" coppie";
+            document.getElementById("output").innerHTML = output;
+        } else {
+            coppia = false;
+            // rigiro dopo un piccolo delay
+            setTimeout(() => {
+                document.getElementById(`btn-${prima.i}-${prima.j}`).innerHTML = `<img src="Image/memory_back.png" alt="back">`;
+                document.getElementById(`btn-${seconda.i}-${seconda.j}`).innerHTML = `<img src="Image/memory_back.png" alt="back">`;
+            }, 1000);
         }
-        else{
-            coppia=false;
-        }
-    }
-    else{
+        scelte = []; // reset per la prossima coppia
     }
 }
 
 function rigira() {
     let buttons = document.querySelectorAll("#tabella button:not(#reset)");
-    if (coppia==true){
-        
-    }
     buttons.forEach(btn => {
-        btn.innerHTML = `<img src="Image/memory_back.png" alt="back">`;
+        if (!btn.disabled) {
+            btn.innerHTML = `<img src="Image/memory_back.png" alt="back">`;
+        }
     });
+    scelte = [];
 }
 
 function preparaImmagini(indic) {
