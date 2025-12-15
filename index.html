@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gioco del memory</title>
+    <link rel="stylesheet" href="Style/style.css">
+    <script src="Script/script.js"></script>
+</head>
+<body>
+    <h1>Memory</h1>
+    <p>Classico gioco del memory</p>
+    <br>
+    <label>Inserire la difficoltà di gioco: </label>
+    <select id="difficoltà">
+        <option value="nulla">--</option>
+        <option value="easy">Facile</option>
+        <option value="medium">Normale</option>
+        <option value="hard">Difficile</option>
+    </select>
+    <br><br>
+    <button onclick="memory()">Inizia il gioco</button>
+    <br><br>
+    <table id="tabella"></table>
+    <div id="output"></div>
+</body>
+</html>
