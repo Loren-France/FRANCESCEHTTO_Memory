@@ -85,7 +85,7 @@ function cliccato(i, j) {
             setTimeout(() => {
                 document.getElementById(`btn-${prima.i}-${prima.j}`).innerHTML = `<img src="Image/memory_back.png" alt="back">`;
                 document.getElementById(`btn-${seconda.i}-${seconda.j}`).innerHTML = `<img src="Image/memory_back.png" alt="back">`;
-            }, 1000);
+            }, 500);
         }
         scelte = []; // reset per la prossima coppia
     }
